@@ -1,5 +1,6 @@
 package org.abror.service.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 /**
@@ -16,9 +17,14 @@ import lombok.*;
 public class FileDTO {
 
     private Long id;
+
     private String name;
+
+    @JsonIgnore
     private byte[] content;
+
     private Long contentLength;
+
     private String mimeType;
 
     public FileDTO withId(Long id) {

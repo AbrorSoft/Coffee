@@ -1,11 +1,10 @@
 package org.abror.service.mapper;
 
-import org.apache.tika.Tika;
+import java.io.IOException;
 import org.abror.service.dto.FileDTO;
+import org.apache.tika.Tika;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
 
 /**
  * @author Nurislom
@@ -30,9 +29,9 @@ public class FileSystemMapper {
     public FileDTO toFileDto(MultipartFile file) throws IOException {
         FileDTO fileDTO = new FileDTO();
 
-        fileDTO.setName(file.getName());
         fileDTO.setContent(file.getBytes());
-        fileDTO.setMimeType(tika.detect(file.getName()));
+        fileDTO.setName(file.getOriginalFilename());
+        fileDTO.setMimeType(tika.detect(file.getOriginalFilename()));
         fileDTO.setContentLength(file.getResource().contentLength());
 
         return fileDTO;
