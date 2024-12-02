@@ -1,0 +1,40 @@
+.login-container {
+  padding: 135px;
+  background-image: url("../../../content/images/bg-coffee.png");
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  //background-position: bottom -50px left 0;
+  position: relative; /* Added to position ::after correctly */
+  overflow: hidden; /* Ensures the ::after element doesn’t overflow */
+}
+
+.login-container::after {
+  content: '';
+  position: absolute; /* Required for proper layering */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  opacity: 0.5; /* Makes the white overlay semi-transparent */
+  z-index: 1;
+}
+
+.login-image{
+
+  width: 412px;
+  height: 412px;
+  border-radius: 50%;
+  background-image: url("../../../content/images/loginImage.jpg");
+  background-position: bottom -18px left -30px;
+}
+
+.row-login{
+  z-index: 2;
+  background-color: rgb(255, 255, 255);
+  border-radius: 28px;
+  padding: 25px;
+}

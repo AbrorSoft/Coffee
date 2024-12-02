@@ -1,0 +1,20 @@
+enum ProductType {
+    AMERICANO, ESPRESSO
+}
+
+entity Product {
+    id Long
+    name String required unique minlength(2) maxlength(255)
+    description String
+    price Double required min(0)
+    imageKey String
+    gram String required
+    calories String
+    type ProductType
+    isDiet Boolean required
+}
+
+dto * with mapstruct
+service * with serviceImpl
+paginate * with pagination
+filter *

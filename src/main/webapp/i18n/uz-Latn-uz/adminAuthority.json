@@ -1,0 +1,23 @@
+{
+  "coffeeApp": {
+    "adminAuthority": {
+      "home": {
+        "title": "Authorities",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Yangi Authority qo`shish",
+        "createOrEditLabel": "Authorityni tahrirlash",
+        "notFound": "No Authorities found"
+      },
+      "created": "Authority {{ param }} bilan qo`shildi",
+      "updated": "{{ param }}- Authority saqlandi",
+      "deleted": "{{ param }}- Authority o`chirildi",
+      "delete": {
+        "question": "{{ id }}- Authorityni o`chirmoqchimisiz? "
+      },
+      "detail": {
+        "title": "Authority"
+      },
+      "name": "Name"
+    }
+  }
+}

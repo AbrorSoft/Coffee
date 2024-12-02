@@ -1,0 +1,31 @@
+{
+  "coffeeApp": {
+    "product": {
+      "home": {
+        "title": "Products",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Yangi Product qo`shish",
+        "createOrEditLabel": "Productni tahrirlash",
+        "notFound": "No Products found"
+      },
+      "created": "Product {{ param }} bilan qo`shildi",
+      "updated": "{{ param }}- Product saqlandi",
+      "deleted": "{{ param }}- Product o`chirildi",
+      "delete": {
+        "question": "{{ id }}- Productni o`chirmoqchimisiz? "
+      },
+      "detail": {
+        "title": "Product"
+      },
+      "id": "Id",
+      "name": "Name",
+      "description": "Description",
+      "price": "Price",
+      "imageKey": "Image Key",
+      "gram": "Gram",
+      "calories": "Calories",
+      "type": "Type",
+      "isDiet": "Is Diet"
+    }
+  }
+}
