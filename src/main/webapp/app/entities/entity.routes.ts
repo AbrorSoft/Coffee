@@ -7,6 +7,16 @@ const routes: Routes = [
     loadChildren: () => import('./admin/authority/authority.routes'),
   },
   {
+    path: 'about',
+    data: { pageTitle: 'coffeeApp.adminAuthority.home.title' },
+    loadChildren: () => import('./About/about.routes'),
+  },
+  {
+    path: 'daily-coffee',
+    data: { pageTitle: 'coffeeApp.adminAuthority.home.title' },
+    loadChildren: () => import('./daily-coffee/daily-coffee.routes'),
+  },
+  {
     path: 'product',
     data: { pageTitle: 'coffeeApp.product.home.title' },
     loadChildren: () => import('./product/product.routes'),

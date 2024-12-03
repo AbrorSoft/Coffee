@@ -1,7 +1,6 @@
-<nav data-cy="navbar" class="navbar navbar-dark navbar-expand-md bg-dark">
+<nav data-cy="navbar" class="navbar navbar-dark navbar-expand-md bg-dark p-2">
   <div class="container-fluid">
     <a class="navbar-brand logo" routerLink="/" (click)="collapseNavbar()">
-
       <span jhiTranslate="global.title" class="navbar-title">Coffee</span>
       <span class="navbar-version">{{ version }}</span>
     </a>
@@ -22,14 +21,35 @@
         <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
           <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
             <span>
-              <fa-icon icon="home"></fa-icon>
               <span jhiTranslate="global.menu.home">Home</span>
+            </span>
+          </a>
+        </li>
+
+        <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          <a class="nav-link" routerLink="/about" (click)="collapseNavbar()">
+            <span>
+              <span>About</span>
+            </span>
+          </a>
+        </li>
+
+        <li
+          *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_USER']"
+          class="nav-item"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <a class="nav-link" routerLink="/daily-coffee" (click)="collapseNavbar()">
+            <span>
+              <span>Daily Coffee</span>
             </span>
           </a>
         </li>
         <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
         @if (account() !== null) {
           <li
+            *jhiHasAnyAuthority="'ROLE_ADMIN'"
             ngbDropdown
             class="nav-item dropdown pointer"
             display="dynamic"

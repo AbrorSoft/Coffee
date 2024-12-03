@@ -20,6 +20,7 @@ Navbar
 
   a.nav-link {
     font-weight: 400;
+    position: relative;
   }
 }
 
@@ -33,4 +34,8 @@ Logo styles
   vertical-align: middle;
   background: url('/content/images/logo-jhipster.png') no-repeat center center;
   background-size: contain;
+}
+.active {
+  background-color: rgba(255, 255, 255, 0.42);
+  border-radius: 10px;
 }

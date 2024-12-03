@@ -236,4 +236,18 @@ angular-cli removes postcss-rtl processed inline css, processed rules must be ad
     }
   }
 }
+.btn-coffee {
+  background-color: #533703;
+  width: 200px;
+  height: 50px;
+  border-radius: 8px;
+  border: 0;
+  color: white;
+  transition: 0.5s;
+  &:hover {
+    background-color: white;
+    color: #533f03;
+  }
+}
+
 /* jhipster-needle-scss-add-main JHipster will add new css style */
