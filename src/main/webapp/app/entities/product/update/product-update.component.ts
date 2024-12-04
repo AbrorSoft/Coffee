@@ -63,7 +63,11 @@ export class ProductUpdateComponent implements OnInit {
   protected onSaveSuccess(): void {
     this.previousState();
   }
-
+  upload(image: any) {
+    const formData = new FormData();
+    formData.append('coffeeImage', image);
+    this.productService.upload(formData);
+  }
   protected onSaveError(): void {
     // Api for inheritance.
   }

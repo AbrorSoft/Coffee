@@ -26,7 +26,9 @@ export class ProductService {
   update(product: IProduct): Observable<EntityResponseType> {
     return this.http.put<IProduct>(`${this.resourceUrl}/${this.getProductIdentifier(product)}`, product, { observe: 'response' });
   }
-
+  upload(data: FormData): Observable<any> {
+    return this.http.post<any>(`${this.resourceUrl}/upload`, data, { observe: 'body' });
+  }
   partialUpdate(product: PartialUpdateProduct): Observable<EntityResponseType> {
     return this.http.patch<IProduct>(`${this.resourceUrl}/${this.getProductIdentifier(product)}`, product, { observe: 'response' });
   }
