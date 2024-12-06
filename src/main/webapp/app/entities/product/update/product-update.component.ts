@@ -1,8 +1,8 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
-import { finalize } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { finalize, takeUntil } from 'rxjs/operators';
 
 import SharedModule from 'app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -63,11 +63,45 @@ export class ProductUpdateComponent implements OnInit {
   protected onSaveSuccess(): void {
     this.previousState();
   }
-  upload(image: any) {
-    const formData = new FormData();
-    formData.append('coffeeImage', image);
-    this.productService.upload(formData);
+  readAsDataUrl(file: File): Observable<any | null> {
+    if (!file) return of(null);
+
+    return new Observable(observer => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+
+      reader.onload = () => {
+        observer.next({
+          name: file.name,
+          contentType: file.type,
+          content: (reader.result as string).split(',')[1],
+        });
+
+        observer.complete();
+      };
+
+      reader.onerror = () => {
+        observer.error(null);
+        observer.complete();
+      };
+    });
   }
+  onSelectImage(event: any): void {
+    this.editForm.get('imageKey')?.setValue(event.target.files[0].name);
+    this.readAsDataUrl(event.target.files[0]).subscribe((file: any | null) => this.setImage(file));
+  }
+
+  private setImage(file: any | null): void {
+    const imageUrl = this.editForm.get('imageFile');
+
+    if (!file) {
+      imageUrl?.setValue(null);
+    } else {
+      const content = `${file.content}`;
+      imageUrl?.setValue(<any>content, { emitEvent: false });
+    }
+  }
+
   protected onSaveError(): void {
     // Api for inheritance.
   }
