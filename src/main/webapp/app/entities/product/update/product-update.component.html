@@ -1,4 +1,4 @@
-<div class="d-flex justify-content-center">
+<div class="d-flex justify-content-center p-5">
   <div class="col-8">
     <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
       <h2 id="jhi-product-heading" data-cy="ProductCreateUpdateHeading" jhiTranslate="coffeeApp.product.home.createOrEditLabel">
@@ -51,15 +51,7 @@
 
         <div class="mb-3">
           <label class="form-label" jhiTranslate="coffeeApp.product.price" for="field_price">Price</label>
-          <input
-            type="number"
-            (change)="upload($event)"
-            class="form-control"
-            name="price"
-            id="field_price"
-            data-cy="price"
-            formControlName="price"
-          />
+          <input type="number" class="form-control" name="price" id="field_price" data-cy="price" formControlName="price" />
           @if (editForm.get('price')!.invalid && (editForm.get('price')!.dirty || editForm.get('price')!.touched)) {
             <div>
               @if (editForm.get('price')?.errors?.required) {
@@ -79,7 +71,15 @@
 
         <div class="mb-3">
           <label class="form-label" jhiTranslate="coffeeApp.product.imageKey" for="field_imageKey">Image Key</label>
-          <input type="file" class="form-control" name="imageKey" id="field_imageKey" data-cy="imageKey" formControlName="imageKey" />
+          <input
+            (change)="upload($event)"
+            type="file"
+            class="form-control"
+            name="imageKey"
+            id="field_imageKey"
+            data-cy="imageKey"
+            formControlName="imageKey"
+          />
         </div>
 
         <div class="mb-3">

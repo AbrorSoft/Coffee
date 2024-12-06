@@ -26,6 +26,7 @@ type ProductFormGroupContent = {
   calories: FormControl<IProduct['calories']>;
   type: FormControl<IProduct['type']>;
   isDiet: FormControl<IProduct['isDiet']>;
+  imageFile: FormControl<IProduct['imageFile']>;
 };
 
 export type ProductFormGroup = FormGroup<ProductFormGroupContent>;
@@ -53,6 +54,7 @@ export class ProductFormService {
         validators: [Validators.required, Validators.min(0)],
       }),
       imageKey: new FormControl(productRawValue.imageKey),
+      imageFile: new FormControl(productRawValue.imageFile),
       gram: new FormControl(productRawValue.gram, {
         validators: [Validators.required],
       }),

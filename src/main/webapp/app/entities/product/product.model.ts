@@ -5,6 +5,7 @@ export interface IProduct {
   name?: string | null;
   description?: string | null;
   price?: number | null;
+  imageFile?: any;
   imageKey?: string | null;
   gram?: string | null;
   calories?: string | null;
