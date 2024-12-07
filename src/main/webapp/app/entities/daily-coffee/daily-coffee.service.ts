@@ -15,6 +15,6 @@ export class DailyCoffeeService {
     return this.http.get(this.resourceUrl);
   }
   getImageByKey(data: string): Observable<any> {
-    return this.http.get(`api/file/${data}`);
+    return this.http.get(`api/file/${data}`, { responseType: 'blob' });
   }
 }

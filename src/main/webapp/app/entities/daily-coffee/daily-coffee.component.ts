@@ -14,14 +14,10 @@ import { ImageComponent } from './image.component';
 })
 export class DailyCoffeeComponent implements OnInit {
   coffeeList: DailyCoffeeModel[] | undefined;
-  data12: any;
-  imageSrc: string | undefined;
   constructor(protected getCoffeeService: DailyCoffeeService) {}
   ngOnInit() {
     this.getCoffeeService.getAllCoffee().subscribe((data: any) => {
-      this.coffeeList = data[0];
-      this.data12 = data[0];
-      console.log(data);
+      this.coffeeList = data;
     });
   }
 }

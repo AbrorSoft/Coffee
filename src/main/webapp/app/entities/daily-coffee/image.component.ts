@@ -3,23 +3,20 @@ import { DailyCoffeeService } from './daily-coffee.service';
 
 @Component({
   selector: 'app-image',
-  template: `
-    <img [src]="imageSrc" alt="Loaded Image" *ngIf="imageSrc; else loading" />
-    <ng-template #loading>
-      {{ imageSrc }}
-      <h1>loading</h1>
-      <p>Loading...</p>
-    </ng-template>
+  template: ` <img [src]="imageSrc" alt="Loaded Image" /> `,
+  styles: `
+    img {
+      width: 100%;
+      object-fit: cover;
+    }
   `,
   standalone: true,
 })
 export class ImageComponent implements OnChanges {
-  // look here imageKey coming null
   @Input() imageKey: any; // Input from the parent component
   imageSrc: string | undefined; // Stores the fetched image URL
 
   constructor(private getCoffeeService: DailyCoffeeService) {}
-
   // Reacts to changes in `imageKey`
   ngOnChanges(changes: SimpleChanges): void {
     console.log();
@@ -27,11 +24,10 @@ export class ImageComponent implements OnChanges {
       this.fetchImage(this.imageKey);
     }
   }
-
   private fetchImage(imageKey: string): void {
     this.getCoffeeService.getImageByKey(imageKey).subscribe({
       next: data => {
-        this.imageSrc = data; // Adjust if the API response structure is different
+        this.imageSrc = URL.createObjectURL(data); // Adjust if the API response structure is different
       },
       error: err => {
         console.error('Failed to load image:', err);
