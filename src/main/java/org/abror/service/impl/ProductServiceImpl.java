@@ -83,7 +83,7 @@ public class ProductServiceImpl implements ProductService {
 
     private void saveImageFile(ProductDTO productDTO) {
         if (productDTO.getImageFile() != null && productDTO.getImageKey() != null) {
-            fileUploadService.uploadFile(productDTO.getName(), productDTO.getImageFile());
+            fileUploadService.uploadFile(productDTO.getImageKey(), productDTO.getImageFile());
         }
     }
 }

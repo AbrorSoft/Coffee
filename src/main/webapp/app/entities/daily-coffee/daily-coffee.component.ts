@@ -3,19 +3,24 @@ import { RouterLink } from '@angular/router';
 import { DailyCoffeeService } from './daily-coffee.service';
 import { NgOptimizedImage } from '@angular/common';
 import { DailyCoffeeModel } from './daily-coffee.model';
+import { ProductService } from '../product/service/product.service';
+import { ImageComponent } from './image.component';
 
 @Component({
   templateUrl: 'daily-coffee.component.html',
   standalone: true,
   styleUrl: 'daily-coffee.component.scss',
-  imports: [RouterLink, NgOptimizedImage],
+  imports: [RouterLink, NgOptimizedImage, ImageComponent],
 })
 export class DailyCoffeeComponent implements OnInit {
   coffeeList: DailyCoffeeModel[] | undefined;
+  data12: any;
+  imageSrc: string | undefined;
   constructor(protected getCoffeeService: DailyCoffeeService) {}
   ngOnInit() {
     this.getCoffeeService.getAllCoffee().subscribe((data: any) => {
-      this.coffeeList = data;
+      this.coffeeList = data[0];
+      this.data12 = data[0];
       console.log(data);
     });
   }
