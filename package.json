@@ -4,7 +4,7 @@
   "private": true,
   "description": "Description for Coffee",
   "license": "UNLICENSED",
-  "main": "src/main.ts",
+  "main": "src/main/webapp/main.ts",
   "scripts": {
     "app:start": "./mvnw",
     "app:up": "docker compose -f src/main/docker/app.yml up --wait",
