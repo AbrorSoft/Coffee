@@ -3,7 +3,7 @@ pipeline {
     agent any
 
     tools{
-        jdk 'JAVA_HOME'
+        jdk 'jdk17'
         maven 'maven3'
     }
 
@@ -23,14 +23,13 @@ pipeline {
                 // Run Maven on a Unix agent.
                 // bat 'npx rimraf node_modules'
                 // bat 'npm cache clean --force'
-                bat 'npm install'
-                bat 'echo %JAVA_HOME%'
-                bat 'java --version'
-
-                bat 'mvn --version'
-                bat 'mvn clean'
-                bat "mvn package"
-
+                sh '''
+                npm install
+                java --version
+                mvn --version
+                mvn clean
+                mvn package
+                '''
             }
 
             post {
@@ -40,12 +39,30 @@ pipeline {
                     archiveArtifacts 'target/*.jar'
                 }
             }
+
         }
 
-        stage('Deploy Image') {
+        stage('Deploy') {
 
             steps {
-                bat 'docker-compose -f coffee.yml up'
+                echo 'Deploying jar file to server directory...'
+                sh '''
+                JAR_FILE=$(ls target/*.jar | head -n 1)
+                DEST_DIR=/home/coffee/jars
+                echo "Copying $JAR_FILE to $DEST_DIR"
+                cp $JAR_FILE $DEST_DIR
+                '''
+            }
+
+        }
+
+        stage('Restart') {
+
+            steps {
+                echo 'Restarting coffee project'
+                sh '''
+                docker restart docker_coffee_1
+                '''
             }
 
         }
