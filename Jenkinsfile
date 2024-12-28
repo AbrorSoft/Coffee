@@ -41,5 +41,13 @@ pipeline {
                 }
             }
         }
+
+        stage('Deploy Image') {
+
+            steps {
+                bat 'docker-compose -f coffee.yml up'
+            }
+
+        }
     }
 }
