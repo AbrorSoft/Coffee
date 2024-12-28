@@ -24,7 +24,6 @@ pipeline {
                 // bat 'npx rimraf node_modules'
                 // bat 'npm cache clean --force'
                 sh '''
-                npm install
                 java --version
                 mvn --version
                 mvn clean
@@ -49,8 +48,10 @@ pipeline {
                 sh '''
                 JAR_FILE=$(ls target/*.jar | head -n 1)
                 DEST_DIR=/home/coffee/jars
+
+                sudo -u jenkins -i
                 echo "Copying $JAR_FILE to $DEST_DIR"
-                cp $JAR_FILE $DEST_DIR
+                sudo cp $JAR_FILE $DEST_DIR
                 '''
             }
 
@@ -61,7 +62,8 @@ pipeline {
             steps {
                 echo 'Restarting coffee project'
                 sh '''
-                docker restart docker_coffee_1
+                sudo -u jenkins -i
+                sudo docker restart docker_coffee_1
                 '''
             }
 
