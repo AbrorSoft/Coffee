@@ -9,6 +9,6 @@ services:
       - SPRING_JPA_HIBERNATE_DDL_AUTO=none
       - SPRING_JPA_SHOW_SQL=true
       - JHIPSTER_SLEEP=30
-    command: bash -c "java -Duser.timezone="Asia/Tashkent" -Dfile.encoding=UTF-8 -jar $$(ls -t /target/coffee*.jar | head -n1)"
+    command: bash -c "java -Duser.timezone="Asia/Tashkent" -Dfile.encoding=UTF-8 -jar $$(ls -t /target/coffee-*.jar | head -n1)"
     ports:
       - '8080:8080'
