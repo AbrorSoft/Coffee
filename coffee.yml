@@ -3,8 +3,6 @@ services:
     image: openjdk:17
     container_name: coffee-app
     restart: always #on-failure #always
-    depends_on:
-      - fooddb
     environment:
       - _JAVA_OPTIONS=-Xmx512m -Xms256m
       - SPRING_PROFILES_ACTIVE=dev
@@ -12,15 +10,5 @@ services:
       - SPRING_JPA_SHOW_SQL=true
       - JHIPSTER_SLEEP=30
     command: bash -c "java -Duser.timezone="Asia/Tashkent" -Dfile.encoding=UTF-8 -jar $$(ls -t /target/coffee*.jar | head -n1)"
-    networks:
-      - food_network
     ports:
-      - '3131:8080'
-
-volumes:
-  food_local_db:
-    external: true
-
-networks:
-  food_network:
-    driver: bridge
+      - '8080:8080'
