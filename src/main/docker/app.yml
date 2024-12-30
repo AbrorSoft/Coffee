@@ -1,22 +1,22 @@
-# This configuration is intended for development purpose, it's **your** responsibility to harden it for production
-version: '3'
-services:
-  coffee:
-    image: openjdk:17
-    environment:
-      - _JAVA_OPTIONS=-Xmx512m -Xms256m
-      - SERVER_PORT=18080
-      - SPRING_PROFILES_ACTIVE=prod,api-docs
-      - MANAGEMENT_PROMETHEUS_METRICS_EXPORT_ENABLED=true
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://176.96.243.247:5432/coffee_db
-      - SPRING_LIQUIBASE_URL=jdbc:postgresql://176.96.243.247:5432/coffee_db
-      - SPRING_DATASOURCE_USERNAME=coffee
-      - SPRING_DATASOURCE_PASSWORD=zSAdVunybTjL
-      - SPRING_JPA_SHOW_SQL=true
-    volumes:
-      - /home/coffee/jars:/DATA/jars
-      - /home/coffee/logs:/DATA/logs/coffee.log
-      - /etc/localtime:/etc/localtime:ro
-    command: bash -c "java -Duser.timezone="Asia/Tashkent" -Dfile.encoding=UTF-8 -jar $$(ls -t /DATA/jars/coffee-*.jar | head -n1) --logging.file=/DATA/logs/coffee.log && tail -f /dev/null"
-    ports:
-      - '18080:18080'
+## This configuration is intended for development purpose, it's **your** responsibility to harden it for production
+#version: '3'
+#services:
+#  coffee:
+#    image: openjdk:17
+#    environment:
+#      - _JAVA_OPTIONS=-Xmx512m -Xms256m
+#      - SERVER_PORT=18080
+#      - SPRING_PROFILES_ACTIVE=prod,api-docs
+#      - MANAGEMENT_PROMETHEUS_METRICS_EXPORT_ENABLED=true
+#      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresql:5432/coffee_db
+#      - SPRING_LIQUIBASE_URL=jdbc:postgresql://postgresql:5432/coffee_db
+#      - SPRING_DATASOURCE_USERNAME=coffee
+#      - SPRING_DATASOURCE_PASSWORD=zSAdVunybTjL
+#      - SPRING_JPA_SHOW_SQL=true
+#    volumes:
+#      - /home/coffee/jars:/DATA/jars
+#      - /home/coffee/logs:/DATA/logs/coffee.log
+#      - /etc/localtime:/etc/localtime:ro
+#    command: bash -c "java -Duser.timezone="Asia/Tashkent" -Dfile.encoding=UTF-8 -jar $$(ls -t /DATA/jars/coffee-*.jar | head -n1) --logging.file=/DATA/logs/coffee.log && tail -f /dev/null"
+#    ports:
+#      - '18080:18080'
