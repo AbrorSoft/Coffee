@@ -1,3 +1,15 @@
+// Anvarov Abror
+
+//This file contains integration tests for the PublicUserResource REST controller.
+// These tests validate the behavior of the endpoints exposed by PublicUserResource, ensuring that the application
+// functions correctly when interacting with the database and HTTP layer.
+
+/**
+ * Dependencies
+ * @AutoConfigureMockMvc
+ * @WithMockUser
+ * @IntegrationTest
+ */
 package org.abror.web.rest;
 
 import static org.hamcrest.Matchers.hasItem;
@@ -5,12 +17,12 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import jakarta.persistence.EntityManager;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.abror.IntegrationTest;
 import org.abror.domain.User;
 import org.abror.repository.UserRepository;
 import org.abror.security.AuthoritiesConstants;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.http.MediaType;

@@ -1,3 +1,9 @@
+// Anvarov Abror
+
+// This file tests the SecurityMetersService class,
+// which is responsible for tracking and updating counters related to invalid authentication tokens.
+// It ensures that counters are created for different types of token failures and that the counters are updated
+// correctly when specific methods are called.
 package org.abror.management;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -24,6 +30,8 @@ class SecurityMetersServiceTests {
         securityMetersService = new SecurityMetersService(meterRegistry);
     }
 
+    //  This test verifies that counters for various invalid token causes
+    //  (like expired, unsupported, invalid signature, and malformed) are created correctly in the MeterRegistry.
     @Test
     void testInvalidTokensCountersByCauseAreCreated() {
         meterRegistry.get(INVALID_TOKENS_METER_EXPECTED_NAME).counter();
@@ -41,6 +49,8 @@ class SecurityMetersServiceTests {
         assertThat(counters).hasSize(4);
     }
 
+    // This test ensures that when the SecurityMetersService methods (e.g., trackTokenExpired, trackTokenUnsupported, etc.) are called,
+    // the appropriate counters in the MeterRegistry are incremented correctly.
     @Test
     void testCountMethodsShouldBeBoundToCorrectCounters() {
         assertThat(meterRegistry.get(INVALID_TOKENS_METER_EXPECTED_NAME).tag("cause", "expired").counter().count()).isZero();

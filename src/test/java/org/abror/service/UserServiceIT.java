@@ -1,3 +1,7 @@
+// Anvarov Abror
+
+// This file contains integration tests for the UserService.
+
 package org.abror.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -8,12 +12,12 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
-import org.apache.commons.lang3.RandomStringUtils;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.abror.IntegrationTest;
 import org.abror.domain.User;
 import org.abror.repository.UserRepository;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.auditing.AuditingHandler;
@@ -79,6 +83,9 @@ class UserServiceIT {
         auditingHandler.setDateTimeProvider(dateTimeProvider);
     }
 
+    //This test ensures that a user must exist in the database to request a password reset.
+    //It checks that an invalid email returns an empty response,
+    //while a valid user's email returns the correct user object with a reset key and reset date.
     @Test
     @Transactional
     void assertThatUserMustExistToResetPassword() {
@@ -93,6 +100,8 @@ class UserServiceIT {
         assertThat(maybeUser.orElse(null).getResetKey()).isNotNull();
     }
 
+    // This test verifies that only activated users are allowed to request a password reset.
+    // It sets the user’s activated status to false and checks that the request for a password reset returns an empty response.
     @Test
     @Transactional
     void assertThatOnlyActivatedUserCanRequestPasswordReset() {
@@ -104,6 +113,8 @@ class UserServiceIT {
         userRepository.delete(user);
     }
 
+    // This test checks that a password reset key must not be older than 24 hours.
+    // If the reset key is older than 24 hours, the password reset attempt should fail and return an empty response.
     @Test
     @Transactional
     void assertThatResetKeyMustNotBeOlderThan24Hours() {
@@ -119,6 +130,8 @@ class UserServiceIT {
         userRepository.delete(user);
     }
 
+    // This test ensures that the password reset key must be valid.
+    // It uses an invalid reset key and confirms that the password reset attempt returns an empty response.
     @Test
     @Transactional
     void assertThatResetKeyMustBeValid() {
@@ -133,6 +146,8 @@ class UserServiceIT {
         userRepository.delete(user);
     }
 
+    // This test ensures that a user can successfully reset their password if the reset key is valid and the reset request is within the allowed time window.
+    // It checks that the reset date and key are cleared after the reset, and that the password has been changed.
     @Test
     @Transactional
     void assertThatUserCanResetPassword() {
@@ -153,6 +168,8 @@ class UserServiceIT {
         userRepository.delete(user);
     }
 
+    // This test verifies that users who are not activated, have a non-null activation key, and were created more than 3 days ago are deleted.
+    // The test checks that such users are deleted after invoking the removeNotActivatedUsers method.
     @Test
     @Transactional
     void assertThatNotActivatedUsersWithNotNullActivationKeyCreatedBefore3DaysAreDeleted() {
@@ -171,6 +188,8 @@ class UserServiceIT {
         assertThat(users).isEmpty();
     }
 
+    // This test ensures that users who are not activated, have a null activation key, and were created more than 3 days ago are not deleted.
+    // It checks that such users remain in the database after the removeNotActivatedUsers method is called.
     @Test
     @Transactional
     void assertThatNotActivatedUsersWithNullActivationKeyCreatedBefore3DaysAreNotDeleted() {

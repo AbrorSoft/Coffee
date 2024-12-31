@@ -1,9 +1,11 @@
+// Anvarov Abror
+
 package org.abror.service.dto;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.jupiter.api.Test;
 import org.abror.web.rest.TestUtil;
+import org.junit.jupiter.api.Test;
 
 class ProductDTOTest {
 

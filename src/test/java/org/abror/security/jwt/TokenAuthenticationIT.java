@@ -1,3 +1,7 @@
+// Anvarov Abror
+
+// This file tests the behavior of the JWT authentication system
+// by sending HTTP requests to the /api/authenticate endpoint using different tokens and verifying the responses.
 package org.abror.security.jwt;
 
 import static org.abror.security.jwt.JwtAuthenticationTestUtils.*;
@@ -21,21 +25,25 @@ class TokenAuthenticationIT {
     @Value("${jhipster.security.authentication.jwt.base64-secret}")
     private String jwtKey;
 
+    // Tests that a valid JWT token results in a successful authentication (200 OK response).
     @Test
     void testLoginWithValidToken() throws Exception {
         expectOk(createValidToken(jwtKey));
     }
 
+    //  Tests that a token with an invalid signature is rejected with an Unauthorized (401) response.
     @Test
     void testReturnFalseWhenJWThasInvalidSignature() throws Exception {
         expectUnauthorized(createTokenWithDifferentSignature());
     }
 
+    // Tests that a malformed JWT results in an Unauthorized (401) response.
     @Test
     void testReturnFalseWhenJWTisMalformed() throws Exception {
         expectUnauthorized(createSignedInvalidJwt(jwtKey));
     }
 
+    // Tests that an expired JWT token is rejected with an Unauthorized (401) response.
     @Test
     void testReturnFalseWhenJWTisExpired() throws Exception {
         expectUnauthorized(createExpiredToken(jwtKey));

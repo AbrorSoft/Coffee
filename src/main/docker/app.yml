@@ -8,8 +8,8 @@ services:
       - SERVER_PORT=18080
       - SPRING_PROFILES_ACTIVE=prod,api-docs
       - MANAGEMENT_PROMETHEUS_METRICS_EXPORT_ENABLED=true
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresql:5432/coffee_db
-      - SPRING_LIQUIBASE_URL=jdbc:postgresql://postgresql:5432/coffee_db
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://176.96.243.247:5432/coffee_db
+      - SPRING_LIQUIBASE_URL=jdbc:postgresql://176.96.243.247/coffee_db
       - SPRING_DATASOURCE_USERNAME=coffee
       - SPRING_DATASOURCE_PASSWORD=zSAdVunybTjL
       - SPRING_JPA_SHOW_SQL=true

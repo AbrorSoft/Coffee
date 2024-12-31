@@ -1,7 +1,10 @@
+// Anvarov Abror
+// This file contains integration tests for the TokenAuthenticationSecurityMeters.
+// The purpose is to ensure that invalid tokens are properly tracked in the system using a counter in the MeterRegistry.
 package org.abror.security.jwt;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.abror.security.jwt.JwtAuthenticationTestUtils.*;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
 import io.micrometer.core.instrument.Counter;
@@ -29,6 +32,7 @@ class TokenAuthenticationSecurityMetersIT {
     @Autowired
     private MeterRegistry meterRegistry;
 
+    // Ensures that no invalid token counter is incremented when a valid token is used for authentication.
     @Test
     void testValidTokenShouldNotCountAnything() throws Exception {
         Collection<Counter> counters = meterRegistry.find(INVALID_TOKENS_METER_EXPECTED_NAME).counters();
@@ -40,6 +44,7 @@ class TokenAuthenticationSecurityMetersIT {
         assertThat(aggregate(counters)).isEqualTo(count);
     }
 
+    // Verifies that the invalid token counter with the "expired" cause is incremented when an expired token is used.
     @Test
     void testTokenExpiredCount() throws Exception {
         var count = meterRegistry.get(INVALID_TOKENS_METER_EXPECTED_NAME).tag("cause", "expired").counter().count();
@@ -49,6 +54,7 @@ class TokenAuthenticationSecurityMetersIT {
         assertThat(meterRegistry.get(INVALID_TOKENS_METER_EXPECTED_NAME).tag("cause", "expired").counter().count()).isEqualTo(count + 1);
     }
 
+    // Verifies that the counter for invalid tokens with an "invalid-signature" cause is incremented when a token with an invalid signature is used.
     @Test
     void testTokenSignatureInvalidCount() throws Exception {
         var count = meterRegistry.get(INVALID_TOKENS_METER_EXPECTED_NAME).tag("cause", "invalid-signature").counter().count();
@@ -60,6 +66,7 @@ class TokenAuthenticationSecurityMetersIT {
         );
     }
 
+    // Checks that the counter for malformed tokens is incremented when a malformed token is used.
     @Test
     void testTokenMalformedCount() throws Exception {
         var count = meterRegistry.get(INVALID_TOKENS_METER_EXPECTED_NAME).tag("cause", "malformed").counter().count();
@@ -69,6 +76,7 @@ class TokenAuthenticationSecurityMetersIT {
         assertThat(meterRegistry.get(INVALID_TOKENS_METER_EXPECTED_NAME).tag("cause", "malformed").counter().count()).isEqualTo(count + 1);
     }
 
+    // Verifies that the counter for invalid tokens is incremented when an invalid token (not matching expected format) is used.
     @Test
     void testTokenInvalidCount() throws Exception {
         var count = meterRegistry.get(INVALID_TOKENS_METER_EXPECTED_NAME).tag("cause", "malformed").counter().count();

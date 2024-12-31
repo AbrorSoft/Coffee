@@ -1,3 +1,14 @@
+// Anvarov Abror
+
+//This file is a test class designed for integration testing
+//of the UserResource REST controller in a Spring Boot application
+
+/**
+ * Dependencies
+ * @AutoConfigureMockMvc
+ * @Transactional
+ * @WithMockUser
+ */
 package org.abror.web.rest;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -10,9 +21,6 @@ import jakarta.persistence.EntityManager;
 import java.time.Instant;
 import java.util.*;
 import java.util.function.Consumer;
-import org.apache.commons.lang3.RandomStringUtils;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.abror.IntegrationTest;
 import org.abror.domain.Authority;
 import org.abror.domain.User;
@@ -20,6 +28,9 @@ import org.abror.repository.UserRepository;
 import org.abror.security.AuthoritiesConstants;
 import org.abror.service.dto.AdminUserDTO;
 import org.abror.service.mapper.UserMapper;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.http.MediaType;

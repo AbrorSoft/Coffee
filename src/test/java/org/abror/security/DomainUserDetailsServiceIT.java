@@ -1,15 +1,20 @@
+//Anvarov Abror
+
+// This file  is responsible for loading user details by either login or email,
+// and ensuring that the service handles both activated and non-activated users appropriately.
+
 package org.abror.security;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 import java.util.Locale;
-import org.apache.commons.lang3.RandomStringUtils;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.abror.IntegrationTest;
 import org.abror.domain.User;
 import org.abror.repository.UserRepository;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -79,6 +84,7 @@ class DomainUserDetailsServiceIT {
         userRepository.save(userThree);
     }
 
+    //  Verifies that a user can be found by their login.
     @Test
     void assertThatUserCanBeFoundByLogin() {
         UserDetails userDetails = domainUserDetailsService.loadUserByUsername(USER_ONE_LOGIN);
@@ -86,6 +92,7 @@ class DomainUserDetailsServiceIT {
         assertThat(userDetails.getUsername()).isEqualTo(USER_ONE_LOGIN);
     }
 
+    // Checks that the username search is case-insensitive.
     @Test
     void assertThatUserCanBeFoundByLoginIgnoreCase() {
         UserDetails userDetails = domainUserDetailsService.loadUserByUsername(USER_ONE_LOGIN.toUpperCase(Locale.ENGLISH));
@@ -93,6 +100,7 @@ class DomainUserDetailsServiceIT {
         assertThat(userDetails.getUsername()).isEqualTo(USER_ONE_LOGIN);
     }
 
+    // Ensures that a user can be found by their email.
     @Test
     void assertThatUserCanBeFoundByEmail() {
         UserDetails userDetails = domainUserDetailsService.loadUserByUsername(USER_TWO_EMAIL);
@@ -100,6 +108,7 @@ class DomainUserDetailsServiceIT {
         assertThat(userDetails.getUsername()).isEqualTo(USER_TWO_LOGIN);
     }
 
+    // Verifies that the email search is case-insensitive.
     @Test
     void assertThatUserCanBeFoundByEmailIgnoreCase() {
         UserDetails userDetails = domainUserDetailsService.loadUserByUsername(USER_TWO_EMAIL.toUpperCase(Locale.ENGLISH));
@@ -107,6 +116,7 @@ class DomainUserDetailsServiceIT {
         assertThat(userDetails.getUsername()).isEqualTo(USER_TWO_LOGIN);
     }
 
+    // Ensures that the email address is prioritized when both login and email are provided.
     @Test
     void assertThatEmailIsPrioritizedOverLogin() {
         UserDetails userDetails = domainUserDetailsService.loadUserByUsername(USER_ONE_EMAIL);
@@ -114,6 +124,7 @@ class DomainUserDetailsServiceIT {
         assertThat(userDetails.getUsername()).isEqualTo(USER_ONE_LOGIN);
     }
 
+    // Tests that an exception is thrown when trying to load details for a user who is not activated.
     @Test
     void assertThatUserNotActivatedExceptionIsThrownForNotActivatedUsers() {
         assertThatExceptionOfType(UserNotActivatedException.class).isThrownBy(

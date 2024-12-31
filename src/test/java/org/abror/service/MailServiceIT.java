@@ -1,3 +1,8 @@
+// Anvarov Abror
+
+// This file contains integration tests for the MailService.
+
+// The Mail part is not done yet but tests are ready
 package org.abror.service;
 
 import static org.assertj.core.api.Assertions.*;
@@ -19,11 +24,11 @@ import java.nio.charset.Charset;
 import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.abror.IntegrationTest;
 import org.abror.config.Constants;
 import org.abror.domain.User;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.springframework.beans.factory.annotation.Autowired;

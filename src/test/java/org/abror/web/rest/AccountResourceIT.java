@@ -1,3 +1,13 @@
+// Anvarov Abror
+
+// This file contains integration tests for the AccountResource REST controller.
+
+/**
+ * Dependencies
+ * @AutoConfigureMockMvc
+ * @IntegrationTest
+ */
+
 package org.abror.web.rest;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -8,10 +18,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.time.Instant;
 import java.util.*;
 import java.util.stream.Stream;
-import org.apache.commons.lang3.RandomStringUtils;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.MethodSource;
 import org.abror.IntegrationTest;
 import org.abror.config.Constants;
 import org.abror.domain.User;
@@ -23,6 +29,10 @@ import org.abror.service.dto.AdminUserDTO;
 import org.abror.service.dto.PasswordChangeDTO;
 import org.abror.web.rest.vm.KeyAndPasswordVM;
 import org.abror.web.rest.vm.ManagedUserVM;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.http.MediaType;
@@ -58,6 +68,8 @@ class AccountResourceIT {
     @Autowired
     private MockMvc restAccountMockMvc;
 
+    // This test simulates a request from an unauthenticated user.
+    // It ensures that the response to an unauthenticated user is an empty string.
     @Test
     @WithUnauthenticatedMockUser
     void testNonAuthenticatedUser() throws Exception {
@@ -67,6 +79,8 @@ class AccountResourceIT {
             .andExpect(content().string(""));
     }
 
+    // This test simulates a request from an authenticated user with the specified login.
+    // It ensures that the authenticated user's login is returned in the response.
     @Test
     @WithMockUser(TEST_USER_LOGIN)
     void testAuthenticatedUser() throws Exception {
@@ -76,6 +90,8 @@ class AccountResourceIT {
             .andExpect(content().string(TEST_USER_LOGIN));
     }
 
+    // This test checks that a valid user can retrieve their account information.
+    // It ensures that the response contains the correct user details.
     @Test
     @WithMockUser(TEST_USER_LOGIN)
     void testGetExistingAccount() throws Exception {
@@ -94,7 +110,7 @@ class AccountResourceIT {
         user.setAge(20);
         user.setAuthorities(authorities);
         userService.createUser(user);
-
+        // Send GET request to retrieve the user's account details
         restAccountMockMvc
             .perform(get("/api/account").accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk())
@@ -108,11 +124,15 @@ class AccountResourceIT {
             .andExpect(jsonPath("$.authorities").value(AuthoritiesConstants.ADMIN));
     }
 
+    // This test checks that an unauthenticated user cannot retrieve account details.
+    // It ensures that the response status is Unauthorized (401).
     @Test
     void testGetUnknownAccount() throws Exception {
         restAccountMockMvc.perform(get("/api/account").accept(MediaType.APPLICATION_PROBLEM_JSON)).andExpect(status().isUnauthorized());
     }
 
+    // This test verifies that a valid user can register successfully.
+    // It ensures that the new user is created and stored in the database.
     @Test
     @Transactional
     void testRegisterValid() throws Exception {
@@ -137,6 +157,8 @@ class AccountResourceIT {
         assertThat(userRepository.findOneByLogin("test-register-valid")).isPresent();
     }
 
+    // This test checks that a user with an invalid login (containing special characters) cannot register.
+    // It ensures that the system responds with a BadRequest status and the user is not created.
     @Test
     @Transactional
     void testRegisterInvalidLogin() throws Exception {
@@ -163,6 +185,7 @@ class AccountResourceIT {
     }
 
     static Stream<ManagedUserVM> invalidUsers() {
+        // This method provides a stream of invalid users for parameterized tests.
         return Stream.of(
             createInvalidUser("bob", "password", "Bob", "Green", "invalid", true), // <-- invalid
             createInvalidUser("bob", "123", "Bob", "Green", "bob@example.com", true), // password with only 3 digits
@@ -174,10 +197,12 @@ class AccountResourceIT {
     @MethodSource("invalidUsers")
     @Transactional
     void testRegisterInvalidUsers(ManagedUserVM invalidUser) throws Exception {
+        // This parameterized test checks that a user with invalid data cannot register.
+        // It verifies that the registration fails and the user is not created.
         restAccountMockMvc
             .perform(post("/api/register").contentType(MediaType.APPLICATION_JSON).content(om.writeValueAsBytes(invalidUser)))
             .andExpect(status().isBadRequest());
-
+        // Check that the user with the specified login does not exist in the database
         Optional<User> user = userRepository.findOneByLogin("bob");
         assertThat(user).isEmpty();
     }
@@ -206,9 +231,12 @@ class AccountResourceIT {
         return invalidUser;
     }
 
+    // This test checks the scenario where a user attempts to register with a duplicate login.
+    // It ensures that the system prevents duplicate logins, even if the email is different.
     @Test
     @Transactional
     void testRegisterDuplicateLogin() throws Exception {
+        // First registration with a unique login
         // First registration
         ManagedUserVM firstUser = new ManagedUserVM();
         firstUser.setLogin("alice");
@@ -262,6 +290,7 @@ class AccountResourceIT {
             .andExpect(status().is4xxClientError());
     }
 
+    //This test case simulates the registration of a user with a unique email,
     @Test
     @Transactional
     void testRegisterDuplicateEmail() throws Exception {
@@ -345,6 +374,8 @@ class AccountResourceIT {
             .andExpect(status().is4xxClientError());
     }
 
+    // This test ensures that when a user tries to register with the ADMIN role,
+    // the role is ignored and the user is assigned the USER role instead.
     @Test
     @Transactional
     void testRegisterAdminIsIgnored() throws Exception {
@@ -373,6 +404,7 @@ class AccountResourceIT {
             .containsExactly(authorityRepository.findById(AuthoritiesConstants.USER).orElseThrow());
     }
 
+    //This test simulates the account activation process by providing an activation key and ensuring the user's account is activated.
     @Test
     @Transactional
     void testActivateAccount() throws Exception {
@@ -395,12 +427,14 @@ class AccountResourceIT {
         assertThat(user.isActivated()).isTrue();
     }
 
+    //This test case verifies the behavior when an invalid activation key is used to activate an account.
     @Test
     @Transactional
     void testActivateAccountWithWrongKey() throws Exception {
         restAccountMockMvc.perform(get("/api/activate?key=wrongActivationKey")).andExpect(status().isInternalServerError());
     }
 
+    // This test simulates saving and updating a user's account information.
     @Test
     @Transactional
     @WithMockUser("save-account")
@@ -443,6 +477,7 @@ class AccountResourceIT {
         assertThat(updatedUser.getAuthorities()).isEmpty();
     }
 
+    //  This test case checks the behavior when trying to save a user with an invalid email format
     @Test
     @Transactional
     @WithMockUser("save-invalid-email")
@@ -478,6 +513,7 @@ class AccountResourceIT {
         assertThat(userRepository.findOneByEmailIgnoreCase("invalid email")).isNotPresent();
     }
 
+    // This test checks the behavior when trying to save a user with an email that already exists in the system.
     @Test
     @Transactional
     @WithMockUser("save-existing-email")
@@ -524,6 +560,7 @@ class AccountResourceIT {
         assertThat(updatedUser.getEmail()).isEqualTo("save-existing-email@example.com");
     }
 
+    //This test checks whether a user can save a new account with an existing email and login.
     @Test
     @Transactional
     @WithMockUser("save-existing-email-and-login")
@@ -559,6 +596,7 @@ class AccountResourceIT {
         assertThat(updatedUser.getEmail()).isEqualTo("save-existing-email-and-login@example.com");
     }
 
+    // This test ensures that if the current password provided is incorrect, the password change should fail.
     @Test
     @Transactional
     @WithMockUser("change-password-wrong-existing-password")
@@ -586,6 +624,7 @@ class AccountResourceIT {
         assertThat(passwordEncoder.matches(currentPassword, updatedUser.getPassword())).isTrue();
     }
 
+    //  This test checks if the password can be changed correctly when the current password is valid.
     @Test
     @Transactional
     @WithMockUser("change-password")
@@ -612,6 +651,7 @@ class AccountResourceIT {
         assertThat(passwordEncoder.matches("new password", updatedUser.getPassword())).isTrue();
     }
 
+    //  This test ensures that a password change is rejected if the new password is too small (below the minimum length).
     @Test
     @Transactional
     @WithMockUser("change-password-too-small")
@@ -640,6 +680,7 @@ class AccountResourceIT {
         assertThat(updatedUser.getPassword()).isEqualTo(user.getPassword());
     }
 
+    // This test checks if a password change is rejected when the new password exceeds the maximum allowed length.
     @Test
     @Transactional
     @WithMockUser("change-password-too-long")
@@ -668,6 +709,7 @@ class AccountResourceIT {
         assertThat(updatedUser.getPassword()).isEqualTo(user.getPassword());
     }
 
+    //Tests the scenario where a user tries to change their password, but the new password is empty.
     @Test
     @Transactional
     @WithMockUser("change-password-empty")
@@ -694,6 +736,7 @@ class AccountResourceIT {
         assertThat(updatedUser.getPassword()).isEqualTo(user.getPassword());
     }
 
+    // Tests the scenario where a user requests a password reset with a valid email.
     @Test
     @Transactional
     void testRequestPasswordReset() throws Exception {
@@ -713,6 +756,8 @@ class AccountResourceIT {
             .andExpect(status().isOk());
     }
 
+    // My code is not completed but test is ready because I use method TDD Development
+    // Tests the case where the user enters the email in uppercase for a password reset.
     @Test
     @Transactional
     void testRequestPasswordResetUpperCaseEmail() throws Exception {
@@ -732,6 +777,7 @@ class AccountResourceIT {
             .andExpect(status().isOk());
     }
 
+    // Tests the scenario where a user requests a password reset with an incorrect email.
     @Test
     void testRequestPasswordResetWrongEmail() throws Exception {
         restAccountMockMvc
@@ -739,6 +785,7 @@ class AccountResourceIT {
             .andExpect(status().isOk());
     }
 
+    // Tests the scenario where a user finishes a password reset using a valid reset key and a new password.
     @Test
     @Transactional
     void testFinishPasswordReset() throws Exception {
@@ -769,6 +816,7 @@ class AccountResourceIT {
         assertThat(passwordEncoder.matches(keyAndPassword.getNewPassword(), updatedUser.getPassword())).isTrue();
     }
 
+    // Tests the scenario where a user tries to reset their password with a new password that is too short.
     @Test
     @Transactional
     void testFinishPasswordResetTooSmall() throws Exception {
@@ -799,6 +847,7 @@ class AccountResourceIT {
         assertThat(passwordEncoder.matches(keyAndPassword.getNewPassword(), updatedUser.getPassword())).isFalse();
     }
 
+    // Tests the scenario where a user attempts to finish a password reset with an incorrect reset key.
     @Test
     @Transactional
     void testFinishPasswordResetWrongKey() throws Exception {

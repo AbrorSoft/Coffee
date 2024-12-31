@@ -1,3 +1,13 @@
+// Anvarov Abror
+
+// This file contains integration tests for the AuthenticateController REST controller.
+
+/**
+ * Dependencies
+ * @AutoConfigureMockMvc
+ * @IntegrationTest
+ */
+
 package org.abror.web.rest;
 
 import static org.hamcrest.Matchers.emptyString;
@@ -10,11 +20,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.Test;
 import org.abror.IntegrationTest;
 import org.abror.domain.User;
 import org.abror.repository.UserRepository;
 import org.abror.web.rest.vm.LoginVM;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.http.MediaType;
@@ -44,6 +54,7 @@ class AuthenticateControllerIT {
     @Test
     @Transactional
     void testAuthorize() throws Exception {
+        // Create a user with valid credentials
         User user = new User();
         user.setLogin("user-jwt-controller");
         user.setEmail("user-jwt-controller@example.com");
@@ -54,10 +65,11 @@ class AuthenticateControllerIT {
         user.setPassword(passwordEncoder.encode("test"));
 
         userRepository.saveAndFlush(user);
-
+        // Prepare login request
         LoginVM login = new LoginVM();
         login.setUsername("user-jwt-controller");
         login.setPassword("test");
+        // Perform POST request to authenticate and validate the response
         mockMvc
             .perform(post("/api/authenticate").contentType(MediaType.APPLICATION_JSON).content(om.writeValueAsBytes(login)))
             .andExpect(status().isOk())
@@ -67,6 +79,11 @@ class AuthenticateControllerIT {
             .andExpect(header().string("Authorization", not(is(emptyString()))));
     }
 
+    /**
+     * Test case: Successful login with the "remember me" option.
+     * This test validates that the "remember me" option works correctly and returns
+     * a valid JWT token in the response.
+     */
     @Test
     @Transactional
     void testAuthorizeWithRememberMe() throws Exception {
@@ -94,6 +111,11 @@ class AuthenticateControllerIT {
             .andExpect(header().string("Authorization", not(is(emptyString()))));
     }
 
+    /**
+     * Test case: Failed login with invalid credentials.
+     * This test ensures that invalid login attempts return an HTTP 401 status
+     * and do not include a JWT token or Authorization header in the response.
+     */
     @Test
     void testAuthorizeFails() throws Exception {
         LoginVM login = new LoginVM();

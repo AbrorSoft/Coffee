@@ -1,9 +1,19 @@
+// Anvarov Abror
+
+// This file contains integration tests for the ProductResource REST controller.
+
+/**
+ * Dependencies
+ * @AutoConfigureMockMvc
+ * @WithMockUser
+ * @IntegrationTest
+ */
 package org.abror.web.rest;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.hasItem;
 import static org.abror.domain.ProductAsserts.*;
 import static org.abror.web.rest.TestUtil.createUpdateProxyForBean;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -11,14 +21,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.EntityManager;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.abror.IntegrationTest;
 import org.abror.domain.Product;
 import org.abror.domain.enumeration.ProductType;
 import org.abror.repository.ProductRepository;
 import org.abror.service.dto.ProductDTO;
 import org.abror.service.mapper.ProductMapper;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.http.MediaType;

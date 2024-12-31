@@ -1,3 +1,6 @@
+//Anvarov Abror
+// This file handles security-related tasks such as retrieving the current user login,
+// checking authentication, and verifying user authorities in a Spring Security context.
 package org.abror.security;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -25,6 +28,7 @@ class SecurityUtilsUnitTest {
         SecurityContextHolder.clearContext();
     }
 
+    // Verifies that the login name of the current authenticated user can be retrieved correctly.
     @Test
     void testGetCurrentUserLogin() {
         SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
@@ -34,6 +38,7 @@ class SecurityUtilsUnitTest {
         assertThat(login).contains("admin");
     }
 
+    // Checks if the current user's JWT token can be retrieved properly.
     @Test
     void testGetCurrentUserJWT() {
         SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
@@ -43,6 +48,7 @@ class SecurityUtilsUnitTest {
         assertThat(jwt).contains("token");
     }
 
+    //  Confirms that a user is authenticated when the authentication token is set.
     @Test
     void testIsAuthenticated() {
         SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
@@ -52,6 +58,7 @@ class SecurityUtilsUnitTest {
         assertThat(isAuthenticated).isTrue();
     }
 
+    // Ensures that an anonymous user is not considered authenticated.
     @Test
     void testAnonymousIsNotAuthenticated() {
         SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
@@ -63,6 +70,7 @@ class SecurityUtilsUnitTest {
         assertThat(isAuthenticated).isFalse();
     }
 
+    // Verifies if the current user has a specific authority.
     @Test
     void testHasCurrentUserThisAuthority() {
         SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
@@ -75,6 +83,7 @@ class SecurityUtilsUnitTest {
         assertThat(SecurityUtils.hasCurrentUserThisAuthority(AuthoritiesConstants.ADMIN)).isFalse();
     }
 
+    // Checks if the current user has any of the specified authorities.
     @Test
     void testHasCurrentUserAnyOfAuthorities() {
         SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
@@ -87,6 +96,7 @@ class SecurityUtilsUnitTest {
         assertThat(SecurityUtils.hasCurrentUserAnyOfAuthorities(AuthoritiesConstants.ANONYMOUS, AuthoritiesConstants.ADMIN)).isFalse();
     }
 
+    // Tests if the current user has none of the specified authorities.
     @Test
     void testHasCurrentUserNoneOfAuthorities() {
         SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
