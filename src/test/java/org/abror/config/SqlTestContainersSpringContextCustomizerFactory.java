@@ -1,3 +1,6 @@
+//Anvarov Abror
+//The provided SqlTestContainersSpringContextCustomizerFactory class
+//is a custom implementation of ContextCustomizerFactory used in Spring testing to set up a SQL test container for integration tests.
 package org.abror.config;
 
 import java.util.Arrays;

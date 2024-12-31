@@ -1,3 +1,8 @@
+//Anvarov Abror
+
+// tests for the CRLFLogConverter class, which appears to be a custom log converter used in a logging framework.
+// The tests cover different scenarios where the input string is transformed based on the markers and logger names.
+
 package org.abror.config;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -16,6 +21,7 @@ import org.springframework.boot.ansi.AnsiElement;
 
 class CRLFLogConverterTest {
 
+    // Ensures that when the marker list is empty (or null), the input string is returned unchanged.
     @Test
     void transformShouldReturnInputStringWhenMarkerListIsEmpty() {
         ILoggingEvent event = mock(ILoggingEvent.class);
@@ -29,6 +35,7 @@ class CRLFLogConverterTest {
         assertEquals(input, result);
     }
 
+    // Verifies that when the markers contain "CRLF_SAFE", the input string is returned without transformation.
     @Test
     void transformShouldReturnInputStringWhenMarkersContainCRLFSafeMarker() {
         ILoggingEvent event = mock(ILoggingEvent.class);
@@ -43,6 +50,7 @@ class CRLFLogConverterTest {
         assertEquals(input, result);
     }
 
+    // Checks that when the markers contain a marker other than "CRLF_SAFE", the input string is not transformed.
     @Test
     void transformShouldReturnInputStringWhenMarkersNotContainCRLFSafeMarker() {
         ILoggingEvent event = mock(ILoggingEvent.class);
@@ -58,6 +66,7 @@ class CRLFLogConverterTest {
         assertEquals(input, result);
     }
 
+    // Tests that if the logger is "safe" (based on its name), the input string is returned unchanged.
     @Test
     void transformShouldReturnInputStringWhenLoggerIsSafe() {
         ILoggingEvent event = mock(ILoggingEvent.class);
@@ -70,6 +79,7 @@ class CRLFLogConverterTest {
         assertEquals(input, result);
     }
 
+    // Confirms that when markers do not contain "CRLF_SAFE" and the logger is not considered safe, newline (\n) and carriage return (\r) characters are replaced with underscores.
     @Test
     void transformShouldReplaceNewlinesAndCarriageReturnsWithUnderscoreWhenMarkersDoNotContainCRLFSafeMarkerAndLoggerIsNotSafe() {
         ILoggingEvent event = mock(ILoggingEvent.class);
@@ -84,6 +94,7 @@ class CRLFLogConverterTest {
         assertEquals("Test_input_string", result);
     }
 
+    // Similar to the previous test but includes an option for an ANSI color code, verifying that the transformation properly handles ANSI elements.
     @Test
     void transformShouldReplaceNewlinesAndCarriageReturnsWithAnsiStringWhenMarkersDoNotContainCRLFSafeMarkerAndLoggerIsNotSafeAndAnsiElementIsNotNull() {
         ILoggingEvent event = mock(ILoggingEvent.class);
@@ -99,6 +110,7 @@ class CRLFLogConverterTest {
         assertEquals("Test_input_string", result);
     }
 
+    // Verifies that the logger is considered safe if its name starts with a predefined safe prefix.
     @Test
     void isLoggerSafeShouldReturnTrueWhenLoggerNameStartsWithSafeLogger() {
         ILoggingEvent event = mock(ILoggingEvent.class);
@@ -110,6 +122,7 @@ class CRLFLogConverterTest {
         assertTrue(result);
     }
 
+    // Confirms that the logger is not safe if its name does not start with the safe prefix.
     @Test
     void isLoggerSafeShouldReturnFalseWhenLoggerNameDoesNotStartWithSafeLogger() {
         ILoggingEvent event = mock(ILoggingEvent.class);
@@ -121,6 +134,7 @@ class CRLFLogConverterTest {
         assertFalse(result);
     }
 
+    // Ensures that the conversion to an ANSI string works correctly when given an AnsiColor.
     @Test
     void testToAnsiString() {
         CRLFLogConverter cut = new CRLFLogConverter();

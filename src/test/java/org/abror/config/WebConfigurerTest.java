@@ -1,3 +1,6 @@
+//Anvarov Abror
+
+//  Unit tests for the {@link WebConfigurer} class.
 package org.abror.config;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -48,6 +51,7 @@ class WebConfigurerTest {
         webConfigurer = new WebConfigurer(env, props);
     }
 
+    // Tests the customization of the servlet container (UndertowServletWebServerFactory).
     @Test
     void shouldCustomizeServletContainer() {
         env.setActiveProfiles(JHipsterConstants.SPRING_PROFILE_PRODUCTION);
@@ -61,6 +65,7 @@ class WebConfigurerTest {
         }
     }
 
+    // Tests the CORS configuration on API paths (/api/test-cors).
     @Test
     void shouldCorsFilterOnApiPath() throws Exception {
         props.getCors().setAllowedOrigins(Collections.singletonList("other.domain.com"));
@@ -90,6 +95,7 @@ class WebConfigurerTest {
             .andExpect(header().string(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "other.domain.com"));
     }
 
+    // Tests that CORS is not applied to other paths (/test/test-cors).
     @Test
     void shouldCorsFilterOnOtherPath() throws Exception {
         props.getCors().setAllowedOrigins(Collections.singletonList("*"));
@@ -106,6 +112,7 @@ class WebConfigurerTest {
             .andExpect(header().doesNotExist(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN));
     }
 
+    // Tests that the CORS filter is deactivated when allowedOrigins is null
     @Test
     void shouldCorsFilterDeactivatedForNullAllowedOrigins() throws Exception {
         props.getCors().setAllowedOrigins(null);
@@ -118,6 +125,7 @@ class WebConfigurerTest {
             .andExpect(header().doesNotExist(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN));
     }
 
+    // Similar to the previous test, this one checks that if allowedOrigins is an empty list, the CORS filter is also deactivated.
     @Test
     void shouldCorsFilterDeactivatedForEmptyAllowedOrigins() throws Exception {
         props.getCors().setAllowedOrigins(new ArrayList<>());

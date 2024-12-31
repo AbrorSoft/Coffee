@@ -1,7 +1,12 @@
+//Anvarov Abror
+
+// This test class, StaticResourcesWebConfigurerTest, contains unit tests for the StaticResourcesWebConfiguration class,
+// which is responsible for configuring static resource handling (e.g., images, CSS, JavaScript) in a Spring Boot application.
+// The tests focus on verifying the proper setup of resource handlers, caching, and other configurations.
 package org.abror.config;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.abror.config.StaticResourcesWebConfiguration.*;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 import java.util.concurrent.TimeUnit;
@@ -33,6 +38,7 @@ class StaticResourcesWebConfigurerTest {
         staticResourcesWebConfiguration = spy(new StaticResourcesWebConfiguration(props));
     }
 
+    // This test verifies that the addResourceHandlers method in StaticResourcesWebConfiguration correctly adds resource handlers for the specified RESOURCE_PATHS.
     @Test
     void shouldAppendResourceHandlerAndInitializeIt() {
         staticResourcesWebConfiguration.addResourceHandlers(resourceHandlerRegistry);
@@ -44,6 +50,7 @@ class StaticResourcesWebConfigurerTest {
         }
     }
 
+    // This test ensures that the initializeResourceHandler method correctly sets the cache control headers and resource locations.
     @Test
     void shouldInitializeResourceHandlerWithCacheControlAndLocations() {
         CacheControl ccExpected = CacheControl.maxAge(5, TimeUnit.DAYS).cachePublic();
@@ -57,6 +64,8 @@ class StaticResourcesWebConfigurerTest {
         verify(resourceHandlerRegistration, times(1)).addResourceLocations(RESOURCE_LOCATIONS);
     }
 
+    // This test verifies that the CacheControl object is created with default cache settings from JHipster.
+    // Specifically, it checks that the time-to-live (TTL) value for caching is set based on the default properties.
     @Test
     void shouldCreateCacheControlBasedOnJhipsterDefaultProperties() {
         CacheControl cacheExpected = CacheControl.maxAge(JHipsterDefaults.Http.Cache.timeToLiveInDays, TimeUnit.DAYS).cachePublic();
@@ -65,6 +74,8 @@ class StaticResourcesWebConfigurerTest {
             .isEqualTo(cacheExpected.getHeaderValue());
     }
 
+    // This test checks that the CacheControl object is correctly configured using properties set in the JHipsterProperties object.
+    // The timeToLiveInDays is set to MAX_AGE_TEST (5 days in this case).
     @Test
     void shouldCreateCacheControlWithSpecificConfigurationInProperties() {
         props.getHttp().getCache().setTimeToLiveInDays(MAX_AGE_TEST);

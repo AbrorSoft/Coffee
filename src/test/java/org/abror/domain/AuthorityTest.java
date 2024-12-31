@@ -1,10 +1,15 @@
+//Anvarov Abror
+// The AuthorityTest class is a unit test for the Authority class,
+// verifying its equals and hashCode methods using the TestUtil.equalsVerifier and custom assertions.
+// The tests ensure that the Authority class
+// behaves correctly when compared with other instances or when its hash code is generated.
 package org.abror.domain;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.abror.domain.AuthorityTestSamples.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.jupiter.api.Test;
 import org.abror.web.rest.TestUtil;
+import org.junit.jupiter.api.Test;
 
 class AuthorityTest {
 

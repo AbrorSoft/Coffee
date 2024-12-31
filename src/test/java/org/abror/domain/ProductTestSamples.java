@@ -1,3 +1,6 @@
+// Anvarov Abror
+// This Java class, ProductTestSamples,
+// is designed to generate sample Product objects, primarily for testing purposes.
 package org.abror.domain;
 
 import java.util.Random;

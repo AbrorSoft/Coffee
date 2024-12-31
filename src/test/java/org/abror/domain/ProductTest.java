@@ -1,10 +1,14 @@
+// Anvarov Abror
+
+//This ProductTest class is a unit test that verifies the equality behavior of the Product class.
+// It uses AssertJ for assertions and TestUtil to verify the equality contract of the Product class.
 package org.abror.domain;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.abror.domain.ProductTestSamples.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.jupiter.api.Test;
 import org.abror.web.rest.TestUtil;
+import org.junit.jupiter.api.Test;
 
 class ProductTest {
 

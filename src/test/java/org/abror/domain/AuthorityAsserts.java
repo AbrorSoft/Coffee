@@ -1,3 +1,6 @@
+// Anvarov Abror
+// The AuthorityAsserts class is a utility class designed to help with verifying that two Authority entities have equivalent properties.
+// The class provides methods to assert that the fields and relationships of the Authority entities are correctly set and match the expected values.
 package org.abror.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
