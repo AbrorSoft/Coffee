@@ -5,13 +5,12 @@ import org.abror.service.dto.FileDTO;
 import org.mapstruct.Mapper;
 
 /**
- * @author Nurislom
+ * @author Abror
  * @see org.abror.service.mapper
  * @since 9/21/2024 7:29 PM
  */
 @Mapper(componentModel = "spring")
 public interface FileMapper extends EntityMapper<FileDTO, File> {
-
     /**
      *
      * @param file

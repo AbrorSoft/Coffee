@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * @author Nurislom
+ * @author Abror
  * @see org.abror.config
  * @since 9/21/2024 7:19 PM
  */

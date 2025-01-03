@@ -7,11 +7,11 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class DailyCoffeeService {
-  constructor() {}
   protected http = inject(HttpClient);
   protected applicationConfigService = inject(ApplicationConfigService);
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/products');
-  getAllCoffee() {
+  constructor() {}
+  getAllCoffee(): any {
     return this.http.get(this.resourceUrl);
   }
   getImageByKey(data: string): Observable<any> {

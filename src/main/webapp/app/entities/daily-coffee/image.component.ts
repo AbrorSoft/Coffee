@@ -2,7 +2,7 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { DailyCoffeeService } from './daily-coffee.service';
 
 @Component({
-  selector: 'app-image',
+  selector: './app-image',
   template: `<img [src]="imageSrc" alt="Loaded Image" /> `,
   styles: `
     img {
@@ -20,7 +20,7 @@ export class ImageComponent implements OnChanges {
   constructor(private getCoffeeService: DailyCoffeeService) {}
   // Reacts to changes in `imageKey`
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['imageKey'] && this.imageKey) {
+    if (this.imageKey && changes['imageKey']) {
       this.fetchImage(this.imageKey);
     }
   }
@@ -28,10 +28,8 @@ export class ImageComponent implements OnChanges {
     this.getCoffeeService.getImageByKey(imageKey).subscribe({
       next: data => {
         this.imageSrc = URL.createObjectURL(data);
-        console.log(this.imageSrc, 'image'); // Adjust if the API response structure is different
       },
       error: err => {
-        console.error('Failed to load image:', err);
         this.imageSrc = 'path/to/fallback/image.jpg'; // Optional fallback
       },
     });

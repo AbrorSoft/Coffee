@@ -4,12 +4,11 @@ import org.abror.domain.enumeration.FileStorageStrategy;
 import org.abror.service.FileStorageService;
 
 /**
- * @author Nurislom
+ * @author Abror
  * @see org.abror.service.impl
  * @since 9/21/2024 7:46 PM
  */
 public interface FileSystemStorageService extends FileStorageService {
-
     /**
      *
      * @return

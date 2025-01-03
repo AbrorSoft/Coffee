@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
- * @author Nurislom
+ * @author Abror
  * @see org.abror.service.mapper
  * @since 9/21/2024 7:17 PM
  */

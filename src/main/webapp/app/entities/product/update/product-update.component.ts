@@ -63,7 +63,7 @@ export class ProductUpdateComponent implements OnInit {
   protected onSaveSuccess(): void {
     this.previousState();
   }
-  readAsDataUrl(file: File): Observable<any | null> {
+  readAsDataUrl(file: File): Observable<any> {
     if (!file) return of(null);
 
     return new Observable(observer => {
@@ -88,10 +88,10 @@ export class ProductUpdateComponent implements OnInit {
   }
   onSelectImage(event: any): void {
     this.editForm.get('imageKey')?.setValue(event.target.files[0].name);
-    this.readAsDataUrl(event.target.files[0]).subscribe((file: any | null) => this.setImage(file));
+    this.readAsDataUrl(event.target.files[0]).subscribe((file: any) => this.setImage(file));
   }
 
-  private setImage(file: any | null): void {
+  private setImage(file: any): void {
     const imageUrl = this.editForm.get('imageFile');
 
     if (!file) {

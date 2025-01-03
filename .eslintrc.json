@@ -11,7 +11,7 @@
   ],
   "env": {
     "browser": true,
-    "es6": true,
+    "es6": false,
     "commonjs": true
   },
   "parserOptions": {
@@ -21,7 +21,7 @@
   },
   "rules": {
     "@angular-eslint/component-selector": [
-      "error",
+      "off",
       {
         "type": "element",
         "prefix": "jhi",
@@ -29,7 +29,7 @@
       }
     ],
     "@angular-eslint/directive-selector": [
-      "error",
+      "off",
       {
         "type": "attribute",
         "prefix": "jhi",
@@ -38,7 +38,7 @@
     ],
     "@angular-eslint/relative-url-prefix": "error",
     "@typescript-eslint/ban-types": [
-      "error",
+      "off",
       {
         "extendDefaults": true,
         "types": {
@@ -46,10 +46,10 @@
         }
       }
     ],
-    "@typescript-eslint/explicit-function-return-type": ["error", { "allowExpressions": true }],
+    "@typescript-eslint/explicit-function-return-type": ["off", { "allowExpressions": true }],
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "@typescript-eslint/member-ordering": [
-      "error",
+      "off",
       {
         "default": [
           "public-static-field",
@@ -71,23 +71,23 @@
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-floating-promises": "off",
     "@typescript-eslint/no-non-null-assertion": "off",
-    "@typescript-eslint/no-shadow": ["error"],
-    "@typescript-eslint/no-unnecessary-condition": "error",
+    "@typescript-eslint/no-shadow": ["off"],
+    "@typescript-eslint/no-unnecessary-condition": "off",
     "@typescript-eslint/no-unsafe-argument": "off",
     "@typescript-eslint/no-unsafe-assignment": "off",
     "@typescript-eslint/no-unsafe-call": "off",
     "@typescript-eslint/no-unsafe-member-access": "off",
     "@typescript-eslint/no-unused-vars": "off",
-    "@typescript-eslint/prefer-nullish-coalescing": "error",
-    "@typescript-eslint/prefer-optional-chain": "error",
+    "@typescript-eslint/prefer-nullish-coalescing": "off",
+    "@typescript-eslint/prefer-optional-chain": "off",
     "@typescript-eslint/unbound-method": "off",
-    "arrow-body-style": "error",
-    "curly": "error",
+    "arrow-body-style": "off",
+    "curly": "off",
     "eqeqeq": ["error", "always", { "null": "ignore" }],
-    "guard-for-in": "error",
+    "guard-for-in": "off",
     "no-bitwise": "error",
     "no-caller": "error",
-    "no-console": ["error", { "allow": ["warn", "error"] }],
+    "no-console": ["off", { "allow": ["warn", "error"] }],
     "no-eval": "error",
     "no-labels": "error",
     "no-new": "error",

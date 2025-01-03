@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 /**
- * @author Nurislom
+ * @author Abror
  * @see org.abror.service.dto
  * @since 9/21/2024 7:03 PM
  */

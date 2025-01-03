@@ -1,13 +1,12 @@
 package org.abror.service.convertor;
 
 import jakarta.persistence.AttributeConverter;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 /**
- * @author Nurislom
+ * @author Abror
  * @see org.abror.service.convertor
  * @since 11/29/2024 10:59 PM
  */

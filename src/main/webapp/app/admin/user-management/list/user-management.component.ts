@@ -95,7 +95,6 @@ export default class UserManagementComponent implements OnInit {
   }
 
   private onSuccess(users: User[] | null, headers: HttpHeaders): void {
-    console.log(users)
     this.totalItems.set(Number(headers.get('X-Total-Count')));
     this.users.set(users);
   }

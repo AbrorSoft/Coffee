@@ -7,7 +7,7 @@ import { ProductService } from '../product/service/product.service';
 import { ImageComponent } from './image.component';
 
 @Component({
-  templateUrl: 'daily-coffee.component.html',
+  templateUrl: './daily-coffee.component.html',
   standalone: true,
   styleUrl: 'daily-coffee.component.scss',
   imports: [RouterLink, NgOptimizedImage, ImageComponent],
@@ -15,7 +15,7 @@ import { ImageComponent } from './image.component';
 export class DailyCoffeeComponent implements OnInit {
   coffeeList: DailyCoffeeModel[] | undefined;
   constructor(protected getCoffeeService: DailyCoffeeService) {}
-  ngOnInit() {
+  ngOnInit(): any {
     this.getCoffeeService.getAllCoffee().subscribe((data: any) => {
       this.coffeeList = data;
     });

@@ -1,29 +1,29 @@
-# Основной образ с Maven и OpenJDK 17 для сборки проекта
+# Base image with Maven and OpenJDK 17 for building the project
 FROM maven:3.9.9-amazoncorretto-17 AS build
 
-# Указываем рабочую директорию
+# Specify the working directory
 WORKDIR /app
 
-# Копируем pom.xml и загружаем зависимости
+# Copy the pom.xml file and download dependencies
 COPY pom.xml .
 
-# Копируем все файлы проекта
+# Copy all project files
 COPY . /app
 
-# Сборка проекта с помощью Maven, пропуская тесты
+# Build the project using Maven, skipping tests
 RUN mvn clean package -DskipTests
 
-# Создаем финальный образ на базе OpenJDK 17
+# Create the final image based on OpenJDK 17
 FROM openjdk:17-jdk-slim
 
-# Указываем рабочую директорию
+# Specify the working directory
 WORKDIR /app
 
-# Копируем скомпилированный .jar файл из предыдущего этапа сборки
+# Copy the compiled .jar file from the previous build stage
 COPY --from=build /target/*.jar app.jar
 
-# Открываем порт 8080
+# Open port 8080
 EXPOSE 8080
 
-# Запускаем приложение
+# Run the application
 ENTRYPOINT ["java", "-jar", "app.jar"]

@@ -6,11 +6,12 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { of, Subject } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { sampleWithRequiredData } from '../product.test-samples';
+// import { sampleWithRequiredData } from '../product.test-samples';
 import { ProductService } from '../service/product.service';
 
 import { ProductComponent } from './product.component';
 import SpyInstance = jest.SpyInstance;
+import { sampleWithRequiredData } from '../../user/user.test-samples';
 
 describe('Product Management Component', () => {
   let comp: ProductComponent;

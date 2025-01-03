@@ -1,17 +1,15 @@
 package org.abror.service;
 
+import java.io.File;
 import org.abror.service.dto.FileDTO;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-
 /**
- * @author Nurislom
+ * @author Abror
  * @see org.abror.service
  * @since 9/21/2024 6:57 PM
  */
 public interface FileUploadService {
-
     /**
      *
      * @param file
