@@ -109,7 +109,7 @@ class AccountResourceIT {
         user.setWeight(17F);
         user.setAge(20);
         user.setAuthorities(authorities);
-        userService.createUser(user);
+        //        userService.createUser(user);
         // Send GET request to retrieve the user's account details
         restAccountMockMvc
             .perform(get("/api/account").accept(MediaType.APPLICATION_JSON))

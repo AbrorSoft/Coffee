@@ -2,24 +2,35 @@
   <div class="row">
     @for (product of coffeeList; track product.id) {
       <div class="col-4 mb-5">
-        <div class="card-hover">
-          <div class="card-hover__content">
+        <div class="card">
+          <div class="card-header">
             <h3 class="card-hover__title">Make your <span>choice</span> with {{ product.name || 'Coffee' }}</h3>
-            <p class="card-hover__text">
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Officia quisquam doloremque nostrum laboriosam, blanditiis libero
-              corporis nulla a aut?
-            </p>
-            <a href="#" class="card-hover__link">
-              <span>Learn How</span>
-              <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-              </svg>
-            </a>
           </div>
-          <div class="card-hover__extra">
-            <h4>Learn <span>now</span> and get <span>40%</span> discount!</h4>
+          <div class="card-body p-0">
+            <app-image [imageKey]="product?.imageKey"></app-image>
+            <div class="p-3">
+              <p class="d-flex justify-content-between">
+                <span> Calories</span> <span> {{ product.calories }}</span>
+              </p>
+              <p class="d-flex justify-content-between">
+                <span> Diet Coffee</span>
+                <span class="text-white p-1" [ngClass]="product.isDiet ? 'bg-success' : 'bg-danger'">
+                  {{ product.isDiet ? 'Yes' : 'No' }}</span
+                >
+              </p>
+              <p class="d-flex justify-content-between">
+                <span> Description</span> <span> {{ product.description }}</span>
+              </p>
+            </div>
+            <div class="card-footer">
+              <div class="d-flex justify-content-between">
+                <span>
+                  {{ product.type }}
+                </span>
+                <span> {{ product.price }}$ </span>
+              </div>
+            </div>
           </div>
-          <app-image [imageKey]="product?.imageKey"></app-image>
         </div>
       </div>
     }

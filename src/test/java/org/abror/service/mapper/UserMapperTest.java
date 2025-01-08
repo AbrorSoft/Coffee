@@ -1,3 +1,6 @@
+// Anvarov Abror
+
+// This file contains unit test class for validating the functionality of the UserMapper class
 package org.abror.service.mapper;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -6,12 +9,12 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import org.apache.commons.lang3.RandomStringUtils;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.abror.domain.User;
 import org.abror.service.dto.AdminUserDTO;
 import org.abror.service.dto.UserDTO;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests for {@link UserMapper}.

@@ -1,16 +1,21 @@
-# This configuration is intended for development purpose, it's **your** responsibility to harden it for production
+# Specifies the version of Docker Compose syntax being used
 version: '3'
 services:
+  # Defines the PostgreSQL service
   postgresql:
+    # Uses the official PostgreSQL Docker image, version 16.2
     image: postgres:16.2
     # volumes:
-    #   - ~/volumes/jhipster/coffee/postgresql/:/var/lib/postgresql/data/
+    # Environment variables for configuring the PostgreSQL container
     environment:
+      # Specifies the name of the default database to be created
       - POSTGRES_DB=coffee_db
+      # Defines the username for the PostgreSQL database
       - POSTGRES_USER=coffee
+      # Defines the password for the PostgreSQL user
       - POSTGRES_PASSWORD=zSAdVunybTjL
+      # Sets the authentication method to 'trust'
       - POSTGRES_HOST_AUTH_METHOD=trust
-    # If you want to expose these ports outside your dev PC,
-    # remove the "127.0.0.1:" prefix
+      # Exposes PostgreSQL on port 5432 to the host, allowing connections to the database
     ports:
       - '5432:5432'

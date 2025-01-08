@@ -1,7 +1,7 @@
 package org.abror.service.query;
 
 import org.abror.domain.Product;
-import org.abror.domain.Product_; // for static metamodels
+//import org.abror.domain.Product_; // for static metamodels
 import org.abror.repository.ProductRepository;
 import org.abror.service.criteria.ProductCriteria;
 import org.abror.service.dto.ProductDTO;
@@ -68,39 +68,39 @@ public class ProductQueryService extends QueryService<Product> {
      */
     protected Specification<Product> createSpecification(ProductCriteria criteria) {
         Specification<Product> specification = Specification.where(null);
-        if (criteria != null) {
-            // This has to be called first, because the distinct method returns null
-            if (criteria.getDistinct() != null) {
-                specification = specification.and(distinct(criteria.getDistinct()));
-            }
-            if (criteria.getId() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getId(), Product_.id));
-            }
-            if (criteria.getName() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getName(), Product_.name));
-            }
-            if (criteria.getDescription() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getDescription(), Product_.description));
-            }
-            if (criteria.getPrice() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getPrice(), Product_.price));
-            }
-            if (criteria.getImageKey() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getImageKey(), Product_.imageKey));
-            }
-            if (criteria.getGram() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getGram(), Product_.gram));
-            }
-            if (criteria.getCalories() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getCalories(), Product_.calories));
-            }
-            if (criteria.getType() != null) {
-                specification = specification.and(buildSpecification(criteria.getType(), Product_.type));
-            }
-            if (criteria.getIsDiet() != null) {
-                specification = specification.and(buildSpecification(criteria.getIsDiet(), Product_.isDiet));
-            }
-        }
+        //        if (criteria != null) {
+        //            // This has to be called first, because the distinct method returns null
+        //            if (criteria.getDistinct() != null) {
+        //                specification = specification.and(distinct(criteria.getDistinct()));
+        //            }
+        //            if (criteria.getId() != null) {
+        //                specification = specification.and(buildRangeSpecification(criteria.getId(), Product_.id));
+        //            }
+        //            if (criteria.getName() != null) {
+        //                specification = specification.and(buildStringSpecification(criteria.getName(), Product_.name));
+        //            }
+        //            if (criteria.getDescription() != null) {
+        //                specification = specification.and(buildStringSpecification(criteria.getDescription(), Product_.description));
+        //            }
+        //            if (criteria.getPrice() != null) {
+        //                specification = specification.and(buildRangeSpecification(criteria.getPrice(), Product_.price));
+        //            }
+        //            if (criteria.getImageKey() != null) {
+        //                specification = specification.and(buildStringSpecification(criteria.getImageKey(), Product_.imageKey));
+        //            }
+        //            if (criteria.getGram() != null) {
+        //                specification = specification.and(buildStringSpecification(criteria.getGram(), Product_.gram));
+        //            }
+        //            if (criteria.getCalories() != null) {
+        //                specification = specification.and(buildStringSpecification(criteria.getCalories(), Product_.calories));
+        //            }
+        //            if (criteria.getType() != null) {
+        //                specification = specification.and(buildSpecification(criteria.getType(), Product_.type));
+        //            }
+        //            if (criteria.getIsDiet() != null) {
+        //                specification = specification.and(buildSpecification(criteria.getIsDiet(), Product_.isDiet));
+        //            }
+        //        }
         return specification;
     }
 }
